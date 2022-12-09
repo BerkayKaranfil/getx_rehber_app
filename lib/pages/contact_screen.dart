@@ -28,35 +28,31 @@ class ContactScreen extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            TextField(
+            /* TextField(
               controller: nameController,
               decoration: InputDecoration(
                   border:
                       OutlineInputBorder(borderSide: BorderSide(width: 1.w)),
                   hintText: "Enter Your Name"),
-            ),
+            ), */
+            CustomTextField(controller: nameController, hintText: "Enter Your Name", textInputType: TextInputType.name),
             SizedBox(
               height: 5.h,
             ),
-            TextField(
+            /* TextField(
               controller: phoneController,
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                   border:
                       OutlineInputBorder(borderSide: BorderSide(width: 1.w)),
                   hintText: "Enter Your Phone Number"),
-            ),
+            ), */
+            CustomTextField(controller: phoneController, hintText: "Enter Your Name", textInputType: TextInputType.phone),
             SizedBox(
               height: 5.h,
             ),
-            TextField(
-              controller: emailController,
-             // keyboardType: TextInputType.phone,
-              decoration: InputDecoration(
-                  border:
-                      OutlineInputBorder(borderSide: BorderSide(width: 1.w)),
-                  hintText: "Enter Your Email"),
-            ),
+            CustomTextField(controller: emailController,hintText: "Enter Your Email",textInputType: TextInputType.emailAddress,),
+            
             SizedBox(
               height: 2.h,
             ),
@@ -74,6 +70,31 @@ class ContactScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class CustomTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final TextInputType textInputType;
+  const CustomTextField({
+    Key? key,
+    //required this.emailController, 
+    required this.controller, required this.hintText, required this.textInputType,
+  }) : super(key: key);
+
+  //final TextEditingController emailController;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      keyboardType: textInputType,
+      decoration: InputDecoration(
+          border:
+              OutlineInputBorder(borderSide: BorderSide(width: 1.w)),
+          hintText: hintText),
     );
   }
 }
