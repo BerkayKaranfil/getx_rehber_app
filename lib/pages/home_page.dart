@@ -11,8 +11,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  final DataController dataController =
-      Get.put(DataController(), permanent: true);
+  final DataController dataController = Get.put(DataController(), permanent: true);
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,11 +22,9 @@ class HomePage extends StatelessWidget {
             height: 10.h,
           ),
           Expanded(
-              child: Obx(
-            () => ListView.builder(
+              child: Obx(() => dataController.contacts.value.isNotEmpty ? ListView.builder(
               itemCount: dataController.contacts.value.length,
               itemBuilder: (context, index) {
-
                 ContactModel model = dataController.contacts.value[index];
 
                 return Container(
@@ -37,14 +35,22 @@ class HomePage extends StatelessWidget {
                     ),
                     title: Text(model.name),
                     subtitle: Text(model.phone),
-                    
-                    trailing: IconButton(onPressed: () {
-                      dataController.removeContact(model);
-                    },icon: Icon(Icons.delete, color: Colors.red,),),
+                    trailing: IconButton(
+                      onPressed: () {
+                        dataController.removeContact(model);
+                      },
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+                    ),
                   ),
                 );
               },
-            ),
+            ) : Center(
+              child: Text("Henüz Not Eklemedin.", style: TextStyle(fontSize: 4.h),),
+            )
+            ,
           )),
           ElevatedButton(
               onPressed: () {
@@ -57,6 +63,9 @@ class HomePage extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
               )),
+              SizedBox(
+                height: 20.h,
+              )
         ],
       ),
     );
