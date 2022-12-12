@@ -27,21 +27,28 @@ class HomePage extends StatelessWidget {
               itemBuilder: (context, index) {
                 ContactModel model = dataController.contacts.value[index];
 
-                return Container(
-                  margin: EdgeInsets.only(bottom: 2.w),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      child: Icon(Icons.person),
-                    ),
-                    title: Text(model.name),
-                    subtitle: Text(model.phone),
-                    trailing: IconButton(
-                      onPressed: () {
-                        dataController.removeContact(model);
-                      },
-                      icon: Icon(
-                        Icons.delete,
-                        color: Colors.red,
+                return Dismissible(
+                  key: UniqueKey(),
+                  //Key(dataController.contacts.value[index].toString()),
+                  onDismissed: (direction) {
+                    dataController.removeContact(model);
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 2.w),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        child: Icon(Icons.person),
+                      ),
+                      title: Text(model.name),
+                      subtitle: Text(model.phone),
+                      trailing: IconButton(
+                        onPressed: () {
+                          dataController.removeContact(model);
+                        },
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
                       ),
                     ),
                   ),
