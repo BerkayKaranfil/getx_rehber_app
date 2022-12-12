@@ -84,7 +84,7 @@ class HomePage extends StatelessWidget {
                   )
                 : Center(
                     child: Text(
-                      "Henüz Not Eklemedin.",
+                      "Contacts list is empty.",
                       style: TextStyle(fontSize: 4.h),
                     ),
                   ),
@@ -94,8 +94,8 @@ class HomePage extends StatelessWidget {
                 Get.to(() => ContactScreen());
               },
               child: Text(
-                "Not Ekle",
-                style: TextStyle(color: Colors.white),
+                "Add contact",
+                style: TextStyle(color: Colors.white, fontSize: 2.h),
               ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
