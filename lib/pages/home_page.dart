@@ -11,8 +11,9 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  final DataController dataController = Get.put(DataController(), permanent: true);
-  
+  final DataController dataController =
+      Get.put(DataController(), permanent: true);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,42 +23,63 @@ class HomePage extends StatelessWidget {
             height: 10.h,
           ),
           Expanded(
-              child: Obx(() => dataController.contacts.value.isNotEmpty ? ListView.builder(
-              itemCount: dataController.contacts.value.length,
-              itemBuilder: (context, index) {
-                ContactModel model = dataController.contacts.value[index];
+              child: Obx(
+            () => dataController.contacts.value.isNotEmpty
+                ? ListView.builder(
+                    itemCount: dataController.contacts.value.length,
+                    itemBuilder: (context, index) {
+                      ContactModel model = dataController.contacts.value[index];
 
-                return Dismissible(
-                  key: UniqueKey(),
-                  //Key(dataController.contacts.value[index].toString()),
-                  onDismissed: (direction) {
-                    dataController.removeContact(model);
-                  },
-                  child: Container(
-                    margin: EdgeInsets.only(bottom: 2.w),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        child: Icon(Icons.person),
-                      ),
-                      title: Text(model.name),
-                      subtitle: Text(model.phone),
-                      trailing: IconButton(
-                        onPressed: () {
+                      return Dismissible(
+                        background: Container(
+                          child: Row(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              //Icon(Icons.delete),
+                              SizedBox(
+                                width: 3.w,
+                              ),
+                              Text(
+                                "Are you sure you want to delete?",
+                                style: TextStyle(
+                                    fontSize: 2.h, color: Colors.blueAccent),
+                              )
+                            ],
+                          ),
+                        ),
+                        key: UniqueKey(),
+                        //Key(dataController.contacts.value[index].toString()),
+                        onDismissed: (direction) {
                           dataController.removeContact(model);
                         },
-                        icon: Icon(
-                          Icons.delete,
-                          color: Colors.red,
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 2.w),
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              child: Icon(Icons.person),
+                            ),
+                            title: Text(model.name),
+                            subtitle: Text(model.phone),
+                            trailing: IconButton(
+                              onPressed: () {
+                                dataController.removeContact(model);
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                      );
+                    },
+                  )
+                : Center(
+                    child: Text(
+                      "Henüz Not Eklemedin.",
+                      style: TextStyle(fontSize: 4.h),
                     ),
                   ),
-                );
-              },
-            ) : Center(
-              child: Text("Henüz Not Eklemedin.", style: TextStyle(fontSize: 4.h),),
-            )
-            ,
           )),
           ElevatedButton(
               onPressed: () {
@@ -70,9 +92,9 @@ class HomePage extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
               )),
-              SizedBox(
-                height: 20.h,
-              )
+          SizedBox(
+            height: 20.h,
+          )
         ],
       ),
     );
