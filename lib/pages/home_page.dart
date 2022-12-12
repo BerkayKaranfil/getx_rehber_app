@@ -55,11 +55,19 @@ class HomePage extends StatelessWidget {
                         child: Container(
                           margin: EdgeInsets.only(bottom: 2.w),
                           child: ListTile(
+                            isThreeLine: true,
                             leading: CircleAvatar(
-                              child: Icon(Icons.person),
+                              radius: 3.h,
+                              child: Icon(Icons.person,size: 4.h,),
                             ),
-                            title: Text(model.name),
-                            subtitle: Text(model.phone),
+                            title: Text(model.name, style: TextStyle(fontSize: 2.h),),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(model.phone,style: TextStyle(color: Colors.black),),
+                                Text(model.email,style: TextStyle(color: Colors.black))
+                              ],
+                            ),
                             trailing: IconButton(
                               onPressed: () {
                                 dataController.removeContact(model);
@@ -86,7 +94,7 @@ class HomePage extends StatelessWidget {
                 Get.to(() => ContactScreen());
               },
               child: Text(
-                "Add",
+                "Not Ekle",
                 style: TextStyle(color: Colors.white),
               ),
               style: ElevatedButton.styleFrom(
