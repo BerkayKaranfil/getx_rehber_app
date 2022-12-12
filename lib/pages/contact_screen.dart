@@ -28,45 +28,82 @@ class ContactScreen extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            /* TextField(
+            TextFormField(
               controller: nameController,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: ((value) {
+                if (!GetUtils.isUsername(value!)) {
+                  return "Please enter a valid user name";
+                } else {
+                  return null;
+                }
+              }),
               decoration: InputDecoration(
                   border:
                       OutlineInputBorder(borderSide: BorderSide(width: 1.w)),
                   hintText: "Enter Your Name"),
-            ), */
-            CustomTextField(controller: nameController, hintText: "Enter Your Name", textInputType: TextInputType.name),
+            ),
+            //  CustomTextField(controller: nameController, hintText: "Enter Your Name", textInputType: TextInputType.name),
             SizedBox(
               height: 5.h,
             ),
-            /* TextField(
+            TextFormField(
               controller: phoneController,
               keyboardType: TextInputType.phone,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: ((value) {
+                if (!GetUtils.isPhoneNumber(value!)) {
+                  return "Please enter a valid phone number";
+                } else {
+                  return null;
+                }
+              }),
               decoration: InputDecoration(
                   border:
                       OutlineInputBorder(borderSide: BorderSide(width: 1.w)),
                   hintText: "Enter Your Phone Number"),
-            ), */
-            CustomTextField(controller: phoneController, hintText: "Enter Your Name", textInputType: TextInputType.phone),
+            ),
+            //  CustomTextField(controller: phoneController, hintText: "Enter Your Phone Number", textInputType: TextInputType.phone),
             SizedBox(
               height: 5.h,
             ),
-            CustomTextField(controller: emailController,hintText: "Enter Your Email",textInputType: TextInputType.emailAddress,),
-            
+            TextFormField(
+              // obscureText: true, // Metni görünmez yapıyor (... gibi)
+              controller: emailController,
+              keyboardType: TextInputType.emailAddress,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: ((value) {
+                if (!GetUtils.isEmail(value!)) {
+                  return "Please enter a valid e-mail address";
+                } else {
+                  return null;
+                }
+              }),
+              decoration: InputDecoration(
+                  border:
+                      OutlineInputBorder(borderSide: BorderSide(width: 1.w)),
+                  hintText: "Enter Your Email"),
+            ),
+            // CustomTextField(controller: emailController,hintText: "Enter Your Email",textInputType: TextInputType.emailAddress,),
+
             SizedBox(
               height: 2.h,
             ),
             ElevatedButton(
                 onPressed: () {
-                  ContactModel model = ContactModel(phone: phoneController.text, email: emailController.text, name: nameController.text);
+                  ContactModel model = ContactModel(
+                      phone: phoneController.text,
+                      email: emailController.text,
+                      name: nameController.text);
                   dataController.addContact(model);
                 },
                 child: Text(
                   "Add",
                   style: TextStyle(color: Colors.white),
                 ),
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.blue, )),
-            
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                )),
           ],
         ),
       ),
@@ -80,20 +117,21 @@ class CustomTextField extends StatelessWidget {
   final TextInputType textInputType;
   const CustomTextField({
     Key? key,
-    //required this.emailController, 
-    required this.controller, required this.hintText, required this.textInputType,
+    //required this.emailController,
+    required this.controller,
+    required this.hintText,
+    required this.textInputType,
   }) : super(key: key);
 
   //final TextEditingController emailController;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
       keyboardType: textInputType,
       decoration: InputDecoration(
-          border:
-              OutlineInputBorder(borderSide: BorderSide(width: 1.w)),
+          border: OutlineInputBorder(borderSide: BorderSide(width: 1.w)),
           hintText: hintText),
     );
   }
