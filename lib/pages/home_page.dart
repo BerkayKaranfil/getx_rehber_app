@@ -22,6 +22,13 @@ class HomePage extends StatelessWidget {
           SizedBox(
             height: 10.h,
           ),
+          Obx(() => dataController.contacts.value.isNotEmpty
+              ? Text(
+                  "Your Contacts",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 4.h),
+                )
+              : SizedBox()),
           Expanded(
               child: Obx(
             () => dataController.contacts.value.isNotEmpty
@@ -58,14 +65,24 @@ class HomePage extends StatelessWidget {
                             isThreeLine: true,
                             leading: CircleAvatar(
                               radius: 3.h,
-                              child: Icon(Icons.person,size: 4.h,),
+                              child: Icon(
+                                Icons.person,
+                                size: 4.h,
+                              ),
                             ),
-                            title: Text(model.name, style: TextStyle(fontSize: 2.h),),
+                            title: Text(
+                              model.name,
+                              style: TextStyle(fontSize: 2.h),
+                            ),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(model.phone,style: TextStyle(color: Colors.black),),
-                                Text(model.email,style: TextStyle(color: Colors.black))
+                                Text(
+                                  model.phone,
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                Text(model.email,
+                                    style: TextStyle(color: Colors.black))
                               ],
                             ),
                             trailing: IconButton(
